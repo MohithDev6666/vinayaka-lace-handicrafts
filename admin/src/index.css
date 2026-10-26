@@ -1,0 +1,51 @@
+:root {
+  --color-primary: #173f3d;
+  --color-cream: #f7f0e8;
+  --color-blush: #f6e8e3;
+  --color-text: #1d302f;
+  --color-border: #e6e4e0;
+  color: var(--color-text);
+  background: #f6f1ea;
+  font-family: 'Inter', Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #173f3d;
+  outline-offset: 2px;
+}
+
+.admin-span-3,
+.admin-span-2 {
+  min-width: 0;
+}
+
+@media (min-width: 75em) {
+  .admin-span-3 {
+    grid-column: span 3;
+  }
+
+  .admin-span-2 {
+    grid-column: span 2;
+  }
+}

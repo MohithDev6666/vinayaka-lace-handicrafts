@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Photograph coming soon">
+  <rect width="600" height="600" fill="#F7F0E8"/>
+  <g fill="none" stroke="#C4B3A4" stroke-width="1.4">
+    <circle cx="300" cy="286" r="78"/>
+    <circle cx="300" cy="286" r="46"/>
+    <circle cx="300" cy="286" r="8" fill="#C4B3A4" stroke="none"/>
+    <path d="M300 208c18 22 18 40 0 58c-18-18-18-36 0-58z"/>
+    <path d="M300 364c-18-22-18-40 0-58c18 18 18 36 0 58z"/>
+    <path d="M222 286c22-18 40-18 58 0c-18 18-36 18-58 0z"/>
+    <path d="M378 286c-22-18-40-18-58 0c18 18 36 18 58 0z"/>
+    <path d="M246 232c28 4 40 18 40 40c-22-8-36-8-52-20c4-8 8-14 12-20z"/>
+    <path d="M354 232c-28 4-40 18-40 40c22-8 36-8 52-20c-4-8-8-14-12-20z"/>
+    <path d="M246 340c28-4 40-18 40-40c-22 8-36 8-52 20c4 8 8 14 12 20z"/>
+    <path d="M354 340c-28-4-40-18-40-40c22 8 36 8 52 20c-4 8-8 14-12 20z"/>
+  </g>
+</svg>

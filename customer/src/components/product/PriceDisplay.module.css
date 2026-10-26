@@ -1,0 +1,26 @@
+.price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 8px;
+  margin: 0;
+  font-size: 14.5px;
+}
+
+.current {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.original {
+  color: var(--color-text-secondary);
+  text-decoration: line-through;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.discount {
+  color: var(--color-success);
+  font-size: 12px;
+  font-weight: 600;
+}

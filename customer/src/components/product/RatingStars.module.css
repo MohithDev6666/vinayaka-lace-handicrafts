@@ -1,0 +1,36 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 1px;
+  color: var(--color-rating);
+}
+
+.star {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+}
+
+.empty {
+  color: #e4d3b0;
+}
+
+.fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  overflow: hidden;
+  color: var(--color-rating);
+  display: block;
+}
+
+.count {
+  color: var(--color-text-secondary);
+  font-size: 12.5px;
+}

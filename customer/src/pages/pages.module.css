@@ -1,0 +1,161 @@
+.page h1 {
+  margin-bottom: 8px;
+}
+
+.crumb {
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.crumb a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.lead,
+.empty,
+.note {
+  margin-bottom: 18px;
+  color: var(--color-text-secondary);
+  max-width: 68ch;
+}
+
+.empty a,
+.note a {
+  color: var(--color-primary);
+}
+
+.product {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: 36px;
+  align-items: start;
+}
+
+.photo {
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-cream);
+  border: 1px solid var(--color-border);
+}
+
+.info {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+}
+
+.info h1 {
+  font-size: clamp(32px, 4vw, 42px);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.primary,
+.secondary {
+  border-radius: 4px;
+  padding: 11px 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.primary {
+  border: 0;
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.primary:hover {
+  background: var(--color-primary-hover);
+}
+
+.secondary {
+  border: 1px solid var(--color-primary);
+  background: #fff;
+  color: var(--color-primary);
+}
+
+.lines {
+  width: 100%;
+  display: grid;
+  gap: 14px;
+}
+
+.line {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.thumb {
+  width: 88px;
+  height: 66px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--color-cream);
+}
+
+.line h2 {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--color-text);
+}
+
+.line h2 a {
+  text-decoration: none;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.qty button,
+.remove {
+  border: 1px solid var(--color-border);
+  background: #fff;
+  color: var(--color-text);
+  border-radius: 4px;
+}
+
+.qty button {
+  width: 28px;
+  height: 28px;
+}
+
+.remove {
+  margin-top: 8px;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.subtotal {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+@media (max-width: 800px) {
+  .product,
+  .line {
+    grid-template-columns: 1fr;
+  }
+
+  .thumb {
+    width: 100%;
+    height: 180px;
+  }
+}

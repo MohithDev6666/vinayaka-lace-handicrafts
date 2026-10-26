@@ -1,0 +1,41 @@
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 8px 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.name {
+  display: block;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 26px;
+  line-height: 1;
+  color: #173f3d;
+}
+
+.sub {
+  display: block;
+  margin-top: 3px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #65716e;
+}
+
+.group {
+  margin: 16px 10px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8d847c;
+}
+
+.note {
+  margin: 8px 10px 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #65716e;
+}

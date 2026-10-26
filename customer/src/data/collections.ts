@@ -1,0 +1,81 @@
+import type { CollectionCard } from '../types/customer.ts';
+import { PENDING_IMAGE } from './media.ts';
+
+export const collections: CollectionCard[] = [
+  {
+    id: 'col-womens',
+    title: "Women's Garments",
+    description: 'Elegant & comfortable',
+    ctaLabel: 'Shop Now',
+    slug: 'womens-garments',
+    image: '/images/woman-boho.jpg',
+    imageAlt: 'Woman wearing a cream handmade crochet lace dress',
+    imagePosition: 'center 18%',
+    categoryIds: ['womens-garments'],
+    order: 1,
+  },
+  {
+    id: 'col-home',
+    title: 'Home & Interior',
+    description: 'Add a touch of handmade charm',
+    ctaLabel: 'Shop Now',
+    slug: 'home-interior',
+    image: '/images/cushions.jpg',
+    imageAlt: 'Handmade crochet cushions in a sunlit corner',
+    imagePosition: 'center 35%',
+    categoryIds: ['interior-decor'],
+    order: 2,
+  },
+  {
+    id: 'col-covers',
+    title: 'Table & Sofa Covers',
+    description: 'Perfect for special occasions',
+    ctaLabel: 'Shop Now',
+    slug: 'table-sofa-covers',
+    image: '/images/coffee-cloth.jpg',
+    imageAlt: 'White crochet lace covering a wooden table',
+    imagePosition: 'center 40%',
+    categoryIds: ['table-covers', 'sofa-covers'],
+    order: 3,
+  },
+  {
+    id: 'col-kids',
+    title: 'Kids Collection',
+    description: 'Cute styles for little ones',
+    ctaLabel: 'Shop Now',
+    slug: 'kids-collection',
+    image: PENDING_IMAGE,
+    imageAlt: "Photograph coming soon for the kids' crochet collection",
+    imagePending: true,
+    categoryIds: ['kids-dresses'],
+    order: 4,
+  },
+  {
+    id: 'col-shrugs',
+    title: 'Shrugs & Ponchos',
+    description: 'Stay cozy, stay stylish',
+    ctaLabel: 'Shop Now',
+    slug: 'shrugs-ponchos',
+    image: '/images/woman-pink.jpg',
+    imageAlt: 'Woman wearing a handmade openwork crochet garment',
+    imagePosition: 'center 20%',
+    categoryIds: ['shrugs-ponchos'],
+    order: 5,
+  },
+  {
+    id: 'col-modern',
+    title: 'Modern & More',
+    description: 'Trendy crochet for modern living',
+    ctaLabel: 'Shop Now',
+    slug: 'modern-more',
+    image: '/images/bag.jpg',
+    imageAlt: 'Handmade cream crochet handbag on a blue blanket',
+    imagePosition: '72% 70%',
+    categoryIds: ['modern-more'],
+    order: 6,
+  },
+];
+
+export function getCollectionBySlug(slug: string | undefined): CollectionCard | undefined {
+  return collections.find((collection) => collection.slug === slug);
+}

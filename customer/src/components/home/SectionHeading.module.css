@@ -1,0 +1,32 @@
+.row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.copy p {
+  margin-top: 6px;
+  color: var(--color-text-secondary);
+  font-size: 14.5px;
+  max-width: 46ch;
+}
+
+.action {
+  flex: 0 0 auto;
+  padding-bottom: 4px;
+}
+
+@media (max-width: 600px) {
+  .row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .action {
+    padding-bottom: 0;
+  }
+}
