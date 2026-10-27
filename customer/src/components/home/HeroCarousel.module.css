@@ -6,7 +6,12 @@
   position: relative;
 }
 
+.deck {
+  display: grid;
+}
+
 .slide {
+  grid-area: 1 / 1;
   display: grid;
   grid-template-columns: 38% 62%;
   min-height: 320px;
@@ -14,7 +19,14 @@
   overflow: hidden;
   border: 1px solid var(--color-border);
   background: var(--color-cream);
+}
+
+.active {
   animation: fade 0.45s ease;
+}
+
+.inactive {
+  visibility: hidden;
 }
 
 .copy {
@@ -81,6 +93,7 @@
 
 .photo {
   position: relative;
+  height: 100%;
   min-height: 240px;
   background: var(--color-cream-dark);
 }

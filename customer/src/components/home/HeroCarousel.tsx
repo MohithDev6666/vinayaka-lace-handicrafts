@@ -58,34 +58,46 @@ export function HeroCarousel() {
           onFocusCapture={() => setFocused(true)}
           onBlurCapture={onBlurCapture}
         >
-          <article className={styles.slide} key={slide.id}>
-            <div className={styles.copy}>
-              <p className={styles.eyebrow}>{slide.eyebrow}</p>
-              <h1>{slide.title}</h1>
-              <p className={styles.description}>{slide.description}</p>
-              <Link className={styles.cta} to={slide.ctaHref}>
-                {slide.ctaLabel}
-                <span aria-hidden="true">→</span>
-              </Link>
-              <p className={styles.highlight}>{slide.highlight}</p>
-              <ul className={styles.points}>
-                {brand.highlights.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-            <div className={styles.photo}>
-              <img
-                src={slide.image}
-                alt={slide.imageAlt}
-                width={1200}
-                height={800}
-                style={{ objectPosition: slide.imagePosition ?? 'center' }}
-                fetchPriority={index === 0 ? 'high' : 'auto'}
-                loading={index === 0 ? 'eager' : 'lazy'}
-              />
-            </div>
-          </article>
+          <div className={styles.deck}>
+            {slides.map((item, slideIndex) => {
+              const active = slideIndex === index;
+              return (
+                <article
+                  key={item.id}
+                  className={active ? `${styles.slide} ${styles.active}` : `${styles.slide} ${styles.inactive}`}
+                  aria-hidden={active ? undefined : true}
+                  inert={active ? undefined : true}
+                >
+                  <div className={styles.copy}>
+                    <p className={styles.eyebrow}>{item.eyebrow}</p>
+                    <h1>{item.title}</h1>
+                    <p className={styles.description}>{item.description}</p>
+                    <Link className={styles.cta} to={item.ctaHref}>
+                      {item.ctaLabel}
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                    <p className={styles.highlight}>{item.highlight}</p>
+                    <ul className={styles.points}>
+                      {brand.highlights.map((point) => (
+                        <li key={point}>{point}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className={styles.photo}>
+                    <img
+                      src={item.image}
+                      alt={item.imageAlt}
+                      width={1200}
+                      height={800}
+                      style={{ objectPosition: item.imagePosition ?? 'center' }}
+                      fetchPriority={slideIndex === 0 ? 'high' : 'auto'}
+                      loading={slideIndex === 0 ? 'eager' : 'lazy'}
+                    />
+                  </div>
+                </article>
+              );
+            })}
+          </div>
           <button
             type="button"
             className={`${styles.arrow} ${styles.prev}`}
