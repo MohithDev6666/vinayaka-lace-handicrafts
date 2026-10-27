@@ -1,11 +1,11 @@
-import { useState, type FormEvent } from 'react';
+import { useLayoutEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import { Burger, Drawer, Menu } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { brand } from '../../data/brand.ts';
 import { primaryNav } from '../../data/navigation.ts';
 import { useShopState } from '../../context/shop-state.ts';
-import { CartIcon, FlowerMark, HeartIcon, SearchIcon, UserIcon } from '../icons/Icons.tsx';
+import { CartIcon, HeartIcon, SearchIcon, UserIcon } from '../icons/Icons.tsx';
 import styles from './CustomerHeader.module.css';
 
 type SearchFormProps = {
@@ -14,6 +14,14 @@ type SearchFormProps = {
   onQueryChange: (value: string) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 };
+
+function fitWordmark(nameEl: HTMLElement, subEl: HTMLElement, logoEl: HTMLElement) {
+  const width = nameEl.getBoundingClientRect().width;
+  subEl.style.width = `${width}px`;
+  const height = Math.round(subEl.getBoundingClientRect().bottom - nameEl.getBoundingClientRect().top);
+  logoEl.style.width = `${height}px`;
+  logoEl.style.height = `${height}px`;
+}
 
 function SearchForm({ inputId, query, onQueryChange, onSubmit }: SearchFormProps) {
   return (
@@ -45,6 +53,21 @@ export function CustomerHeader() {
   const paramQuery = params.get('q') ?? '';
   const [query, setQuery] = useState(paramQuery);
   const [syncedQuery, setSyncedQuery] = useState(paramQuery);
+  const nameRef = useRef<HTMLSpanElement>(null);
+  const subtitleRef = useRef<HTMLSpanElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
+
+  useLayoutEffect(() => {
+    const nameEl = nameRef.current;
+    const subEl = subtitleRef.current;
+    const logoEl = logoRef.current;
+    if (!nameEl || !subEl || !logoEl) return;
+    const fit = () => fitWordmark(nameEl, subEl, logoEl);
+    fit();
+    document.fonts?.ready.then(fit);
+    window.addEventListener('resize', fit);
+    return () => window.removeEventListener('resize', fit);
+  }, []);
 
   if (paramQuery !== syncedQuery) {
     setSyncedQuery(paramQuery);
@@ -78,11 +101,14 @@ export function CustomerHeader() {
           color="#173F3D"
         />
         <Link to="/" className={styles.brand} aria-label={`${brand.name}, ${brand.subtitle}`} onClick={closeOverlays}>
-          <FlowerMark />
+          <img ref={logoRef} className={styles.logo} src="/images/logo.png" alt="" width={40} height={40} />
           <span className={styles.brandText}>
-            <span className={styles.name}>{brand.name}</span>
-            <span className={styles.subtitle}>{brand.subtitle}</span>
-            <span className={styles.tagline}>{brand.tagline}</span>
+            <span ref={nameRef} className={styles.name}>{brand.name}</span>
+            <span ref={subtitleRef} className={styles.subtitle}>
+              {brand.subtitle.split('').map((char, index) => (
+                <span key={index}>{char === ' ' ? '\u00A0' : char}</span>
+              ))}
+            </span>
           </span>
         </Link>
 
@@ -157,6 +183,8 @@ export function CustomerHeader() {
           </div>
         </div>
       ) : null}
+
+      <div className={styles.lace} aria-hidden="true" />
 
       <Drawer
         opened={menuOpened}

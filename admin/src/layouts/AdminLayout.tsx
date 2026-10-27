@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   ActionIcon,
@@ -15,7 +15,6 @@ import {
   Text,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { BrandMark } from '../components/BrandMark.tsx';
 import { ModuleIcon } from '../components/ModuleIcon.tsx';
 import { useAuth } from '../context/auth.tsx';
 import { crumbsFor, moduleGroups, modules } from '../routes/modules.ts';
@@ -27,6 +26,21 @@ const notices = [
   'Newsletter addresses on the storefront are not saved to this list.',
 ];
 
+function fitWordmark(nameEl: HTMLElement, subEl: HTMLElement, logoEl: HTMLElement) {
+  subEl.style.letterSpacing = '0px';
+  const target = nameEl.getBoundingClientRect().width;
+  const natural = subEl.getBoundingClientRect().width;
+  const gaps = Math.max((subEl.textContent?.length ?? 1) - 1, 1);
+  subEl.style.letterSpacing = `${(target - natural) / gaps}px`;
+  const corrected = nameEl.getBoundingClientRect().width - subEl.getBoundingClientRect().width;
+  if (Math.abs(corrected) > 0.5) {
+    subEl.style.letterSpacing = `${(target - natural + corrected) / gaps}px`;
+  }
+  const height = Math.round(subEl.getBoundingClientRect().bottom - nameEl.getBoundingClientRect().top);
+  logoEl.style.width = `${height}px`;
+  logoEl.style.height = `${height}px`;
+}
+
 function isCurrent(pathname: string, to: string, end?: boolean) {
   if (end || to === '/') return pathname === '/';
   return pathname === to || pathname.startsWith(`${to}/`);
@@ -35,6 +49,9 @@ function isCurrent(pathname: string, to: string, end?: boolean) {
 export function AdminLayout() {
   const [opened, { toggle, close }] = useDisclosure();
   const [noticeOpened, setNoticeOpened] = useState(false);
+  const nameRef = useRef<HTMLSpanElement>(null);
+  const subtitleRef = useRef<HTMLSpanElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const { session, signOut } = useAuth();
@@ -43,6 +60,18 @@ export function AdminLayout() {
   useEffect(() => {
     document.title = `${current} | Vinayaka Admin`;
   }, [current]);
+
+  useLayoutEffect(() => {
+    const nameEl = nameRef.current;
+    const subEl = subtitleRef.current;
+    const logoEl = logoRef.current;
+    if (!nameEl || !subEl || !logoEl) return;
+    const fit = () => fitWordmark(nameEl, subEl, logoEl);
+    fit();
+    document.fonts?.ready.then(fit);
+    window.addEventListener('resize', fit);
+    return () => window.removeEventListener('resize', fit);
+  }, []);
 
   return (
     <AppShell
@@ -140,10 +169,10 @@ export function AdminLayout() {
       <AppShell.Navbar p="md">
         <AppShell.Section>
           <Link to="/" className={styles.brand} onClick={close}>
-            <BrandMark size={40} />
-            <span>
-              <span className={styles.name}>Vinayaka</span>
-              <span className={styles.sub}>New Lace Handicrafts</span>
+            <img ref={logoRef} className={styles.logo} src="/images/logo.png" alt="" width={36} height={36} />
+            <span className={styles.brandText}>
+              <span ref={nameRef} className={styles.name}>Vinayaka</span>
+              <span ref={subtitleRef} className={styles.sub}>New Lace Handicrafts</span>
             </span>
           </Link>
         </AppShell.Section>

@@ -98,27 +98,47 @@
 
 .brand {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 10px;
   margin-bottom: 28px;
 }
 
-.brand strong {
+.logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex-shrink: 0;
   display: block;
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 1;
-  color: #173f3d;
 }
 
-.brand span {
+.brandText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.name {
   display: block;
-  margin-top: 3px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #173f3d;
+  white-space: nowrap;
+}
+
+.subtitle {
+  display: block;
+  margin-top: 4px;
+  font-family: 'Inter', Arial, sans-serif;
   font-size: 11px;
-  letter-spacing: 0.14em;
+  font-weight: 700;
+  line-height: 1;
   text-transform: uppercase;
   color: #65716e;
+  white-space: nowrap;
 }
 
 .sample {

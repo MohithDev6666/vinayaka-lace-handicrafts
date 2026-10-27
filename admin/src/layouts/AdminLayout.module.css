@@ -1,27 +1,49 @@
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 4px 8px 12px;
+  gap: 8px;
+  padding: 4px 4px 16px;
   text-decoration: none;
   color: inherit;
 }
 
+.logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
 .name {
   display: block;
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 26px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 800;
   line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: #173f3d;
+  white-space: nowrap;
 }
 
 .sub {
   display: block;
   margin-top: 3px;
-  font-size: 10px;
-  letter-spacing: 0.12em;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
   text-transform: uppercase;
   color: #65716e;
+  white-space: nowrap;
 }
 
 .group {

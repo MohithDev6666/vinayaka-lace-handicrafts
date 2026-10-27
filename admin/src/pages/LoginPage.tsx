@@ -2,11 +2,10 @@ import { Carousel } from '@mantine/carousel';
 import { Button, Checkbox, PasswordInput, Text, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { EmblaCarouselType } from 'embla-carousel';
 import '@mantine/carousel/styles.css';
-import { BrandMark } from '../components/BrandMark.tsx';
 import { useAuth } from '../context/auth.tsx';
 import { previewAccount } from '../data/demo.ts';
 import styles from './login.module.css';
@@ -45,11 +44,41 @@ const loginSlides = [
   },
 ];
 
+function fitWordmark(nameEl: HTMLElement, subEl: HTMLElement, logoEl: HTMLElement) {
+  subEl.style.letterSpacing = '0px';
+  const target = nameEl.getBoundingClientRect().width;
+  const natural = subEl.getBoundingClientRect().width;
+  const gaps = Math.max((subEl.textContent?.length ?? 1) - 1, 1);
+  subEl.style.letterSpacing = `${(target - natural) / gaps}px`;
+  const corrected = nameEl.getBoundingClientRect().width - subEl.getBoundingClientRect().width;
+  if (Math.abs(corrected) > 0.5) {
+    subEl.style.letterSpacing = `${(target - natural + corrected) / gaps}px`;
+  }
+  const height = Math.round(subEl.getBoundingClientRect().bottom - nameEl.getBoundingClientRect().top);
+  logoEl.style.width = `${height}px`;
+  logoEl.style.height = `${height}px`;
+}
+
 export function LoginPage() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const [embla, setEmbla] = useState<EmblaCarouselType | null>(null);
   const paused = useRef(false);
+  const nameRef = useRef<HTMLElement>(null);
+  const subtitleRef = useRef<HTMLElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
+
+  useLayoutEffect(() => {
+    const nameEl = nameRef.current;
+    const subEl = subtitleRef.current;
+    const logoEl = logoRef.current;
+    if (!nameEl || !subEl || !logoEl) return;
+    const fit = () => fitWordmark(nameEl, subEl, logoEl);
+    fit();
+    document.fonts?.ready.then(fit);
+    window.addEventListener('resize', fit);
+    return () => window.removeEventListener('resize', fit);
+  }, []);
 
   useEffect(() => {
     if (!embla) return;
@@ -123,10 +152,10 @@ export function LoginPage() {
       <section className={styles.panel}>
         <div className={styles.card}>
           <div className={styles.brand}>
-            <BrandMark />
-            <div>
-              <strong>Vinayaka</strong>
-              <span>New Lace Handicrafts</span>
+            <img ref={logoRef} className={styles.logo} src="/images/logo.png" alt="" width={48} height={48} />
+            <div className={styles.brandText}>
+              <strong ref={nameRef} className={styles.name}>Vinayaka</strong>
+              <span ref={subtitleRef} className={styles.subtitle}>New Lace Handicrafts</span>
             </div>
           </div>
           <Text size="xs" tt="uppercase" fw={600} c="#8d847c" style={{ letterSpacing: '0.14em' }}>

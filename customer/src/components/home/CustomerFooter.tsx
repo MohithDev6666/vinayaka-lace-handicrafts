@@ -1,25 +1,53 @@
+import { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { brand } from '../../data/brand.ts';
 import { customerCareNav, legalNav, primaryNav } from '../../data/navigation.ts';
-import { FlowerMark } from '../icons/Icons.tsx';
 import styles from './CustomerFooter.module.css';
 
 const socialNames = ['Instagram', 'Facebook', 'Pinterest', 'YouTube'];
 
+function fitWordmark(nameEl: HTMLElement, subEl: HTMLElement, logoEl: HTMLElement) {
+  const width = nameEl.getBoundingClientRect().width;
+  subEl.style.width = `${width}px`;
+  const height = Math.round(subEl.getBoundingClientRect().bottom - nameEl.getBoundingClientRect().top);
+  logoEl.style.width = `${height}px`;
+  logoEl.style.height = `${height}px`;
+}
+
 export function CustomerFooter() {
+  const nameRef = useRef<HTMLSpanElement>(null);
+  const subtitleRef = useRef<HTMLSpanElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
+
+  useLayoutEffect(() => {
+    const nameEl = nameRef.current;
+    const subEl = subtitleRef.current;
+    const logoEl = logoRef.current;
+    if (!nameEl || !subEl || !logoEl) return;
+    const fit = () => fitWordmark(nameEl, subEl, logoEl);
+    fit();
+    document.fonts?.ready.then(fit);
+    window.addEventListener('resize', fit);
+    return () => window.removeEventListener('resize', fit);
+  }, []);
+
   return (
     <footer className={styles.footer}>
       <div className={`page-container ${styles.grid}`}>
-        <div>
-          <Link to="/" className={styles.brand}>
-            <FlowerMark width={36} height={36} />
-            <span>
-              <span className={styles.name}>{brand.name}</span>
-              <span className={styles.subtitle}>{brand.subtitle}</span>
+        <div className={styles.identity}>
+          <Link to="/" className={styles.brand} aria-label={`${brand.name}, ${brand.subtitle}`}>
+            <img ref={logoRef} className={styles.logo} src="/images/logo.png" alt="" width={44} height={44} />
+            <span className={styles.brandText}>
+              <span ref={nameRef} className={styles.name}>{brand.name}</span>
+              <span ref={subtitleRef} className={styles.subtitle}>
+                {brand.subtitle.split('').map((char, index) => (
+                  <span key={index}>{char === ' ' ? '\u00A0' : char}</span>
+                ))}
+              </span>
               <span className={styles.tagline}>{brand.tagline}</span>
             </span>
           </Link>
-          <p className={styles.experience}>30 Years of Experience</p>
+          <img className={styles.stamp} src="/images/30yrs_stamp.png" alt="30 years of experience" width={148} height={148} />
         </div>
 
         <nav aria-label="Quick links">

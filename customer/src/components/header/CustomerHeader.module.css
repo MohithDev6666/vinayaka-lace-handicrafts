@@ -2,8 +2,19 @@
   position: sticky;
   top: 0;
   z-index: 40;
-  background: #fff;
-  border-bottom: 1px solid var(--color-border);
+  background: transparent;
+  border-bottom: 0;
+  overflow-x: clip;
+}
+
+.lace {
+  height: 44px;
+  background-color: transparent;
+  background-image: url('/images/lace_strip_1.png');
+  background-repeat: repeat-x;
+  background-position: left center;
+  background-size: auto 44px;
+  pointer-events: none;
 }
 
 .skip {
@@ -22,10 +33,26 @@
 }
 
 .bar {
-  min-height: var(--header-height);
+  position: relative;
+  min-height: 60px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  padding-bottom: 8px;
   gap: 28px;
+  background: #fff;
+}
+
+.bar::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background: #fff;
 }
 
 .burger {
@@ -35,42 +62,53 @@
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   text-decoration: none;
   color: inherit;
   min-width: 0;
   flex: 0 0 auto;
 }
 
+.logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
 .brandText {
   display: flex;
   flex-direction: column;
-  line-height: 1.05;
+  align-items: flex-start;
+  width: max-content;
   min-width: 0;
 }
 
 .name {
-  font-family: var(--font-serif);
-  font-size: 26px;
-  font-weight: 600;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
   color: var(--color-primary);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .subtitle {
-  margin-top: 2px;
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  box-sizing: border-box;
+  margin-top: 3px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
   text-transform: uppercase;
   color: var(--color-text-secondary);
-}
-
-.tagline {
-  margin-top: 2px;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 12px;
-  color: var(--color-brown);
+  white-space: nowrap;
 }
 
 .nav {
@@ -201,6 +239,7 @@
 .mobileSearch {
   display: none;
   padding: 0 0 12px;
+  background: #fff;
 }
 
 .drawerSearch .search {
@@ -238,10 +277,6 @@
   .search {
     width: 160px;
   }
-
-  .tagline {
-    display: none;
-  }
 }
 
 @media (max-width: 1023px) {
@@ -266,12 +301,10 @@
   }
 
   .name {
-    font-size: 22px;
+    font-size: 16px;
   }
-}
 
-@media (max-width: 420px) {
   .subtitle {
-    display: none;
+    font-size: 7.5px;
   }
 }
